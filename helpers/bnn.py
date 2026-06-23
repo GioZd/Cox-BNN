@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class BayesianGaussianLinear(nn.Module):
     """
     Parameters: mu_w, rho_w (weights), mu_b, rho_b (biases).
@@ -44,7 +45,9 @@ class BayesianGaussianLinear(nn.Module):
     
 
     def layer_kl(self) -> torch.Tensor:
-        """KL divergence between the prior and the variational posterior in the layer."""
+        """KL divergence between the prior and 
+        the variational posterior within the layer.
+        """
         # Softplus transformation
         sigma_w = self._sigma(self.rho_w) # (out, in)
         sigma_b = self._sigma(self.rho_b) # (out,)
@@ -105,8 +108,10 @@ class BayesianMLP(nn.Module):
         return nn.Sequential(OrderedDict(layers))
 
     def network_kl(self) -> torch.Tensor:
-        """Returns the KL divergence between the prior and the variational posterior
-        as a 0-dim tensor."""
+        """Returns the KL divergence between the prior and 
+        the variational posterior as a 0-dim tensor, 
+        by summing over all layer KL.
+        """
         kl = torch.tensor(0.0, dtype=torch.float)
         for layer in self.net:
             if hasattr(layer, 'layer_kl') and isinstance(layer.layer_kl, Callable):
