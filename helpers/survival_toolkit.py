@@ -1,5 +1,7 @@
 import torch
 
+from lifelines.utils import concordance_index
+
 def get_riskset(t: torch.Tensor) -> torch.Tensor:
     """Given a 1-dim pytorch Tensor of event times of size N,
     returns a boolean matrix N x N where row i contains the list
