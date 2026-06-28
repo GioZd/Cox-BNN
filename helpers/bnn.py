@@ -101,10 +101,10 @@ class BayesianMLP(nn.Module):
 
     def __make_net(self) -> nn.Sequential:
         layers: list[tuple[str, nn.Module]] = []
-        for k, (s_in, s_out) in enumerate(pairwise(self.size)):
+        for k, (s_in, s_out) in enumerate(pairwise(self.size[:-1])):
             layers.append((f"l{k}", BayesianGaussianLinear(s_in, s_out, self.prior_sigma)))
             layers.append((f"h{k}", nn.Tanh()))
-        layers.append(('out', BayesianGaussianLinear(self.size[-1], 1, self.prior_sigma)))
+        layers.append(('out', BayesianGaussianLinear(self.size[-2], self.size[-1], self.prior_sigma)))
         return nn.Sequential(OrderedDict(layers))
 
     def network_kl(self) -> torch.Tensor:
