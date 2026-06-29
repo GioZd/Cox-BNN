@@ -20,9 +20,6 @@ The *AIDS Clinical Trials Group Study 175* data were retrieved
 through the [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/dataset/890/aids+clinical+trials+group+study+175),
 but the data is referred as external, from the [NIH Website](https://clinicaltrials.gov/study/NCT00000625).
 
-## AI Policy
-0-AI Policy. No AI was used in the development of the code or the annexed slides and material, nor was used as a blind reference for the understanding of the topic and the derivation of the methods.
-
 ## License and Credits
 The code is under [MIT License](LICENSE).
 
